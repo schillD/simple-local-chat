@@ -243,7 +243,7 @@
               />
               <span class="file-icon">📎</span>
             </label>
-            <button type="submit" disabled={!messageInput.trim()}>Send</button>
+            <button type="submit" class="send-button" disabled={!messageInput.trim()}>Send</button>
           </div>
         </div>
       </form>
@@ -257,16 +257,11 @@
   <!-- Image Modal -->
   {#if showImageModal}
     <!-- Modal backdrop with click handler -->
-    <div 
+    <button 
       class="modal-backdrop"
       on:click={closeImageModal}
-      on:keydown={(e) => {
-        if (e.key === 'Escape') {
-          closeImageModal();
-        }
-      }}
+      aria-label="Close image preview"
       tabindex="-1"
-      role="presentation"
     >
       <!-- Modal dialog -->
       <div
@@ -276,10 +271,11 @@
         aria-labelledby="modal-title"
       >
         <!-- Modal content -->
-        <div 
+        <button 
           class="modal-content" 
           on:click|stopPropagation 
-          role="document"
+          type="button"
+          aria-label="View image"
         >
           <button 
             class="close-button" 
@@ -290,9 +286,9 @@
           </button>
           <h2 id="modal-title" class="sr-only">Image Preview</h2>
           <img src={modalImageSrc} alt="" /><!-- Alt is empty because image is presentational here -->
-        </div>
+        </button>
       </div>
-    </div>
+    </button>
   {/if}
 </div>
 
@@ -400,18 +396,26 @@
     padding: 1rem;
     border-top: 1px solid #333;
     background-color: #1e1e1e;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: visible;
   }
 
   .message-input form {
     display: flex;
-    padding: 1rem;
+    padding: 0.5rem;
     width: 100%;
+    box-sizing: border-box;
+    max-width: 100%;
+    overflow: visible;
   }
   
   .input-container {
     display: flex;
     width: 100%;
     gap: 0.5rem;
+    flex-wrap: nowrap;
+    box-sizing: border-box;
   }
 
   .message-input input[type="text"] {
@@ -427,6 +431,8 @@
     display: flex;
     gap: 0.5rem;
     align-items: center;
+    min-width: 105px;
+    justify-content: flex-end;
   }
   
   .image-upload, .file-upload {
@@ -449,6 +455,35 @@
   
   .image-upload-label:hover, .file-upload-label:hover {
     background-color: #2e7d32;
+  }
+  
+  /* Send button styling */
+  .send-button {
+    background-color: #2e7d32;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    min-width: 70px;
+    height: 2.5rem;
+    white-space: nowrap;
+    display: inline-block;
+    text-align: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+  }
+  
+  .send-button:hover {
+    background-color: #1b5e20;
+  }
+  
+  .send-button:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+    opacity: 0.7;
   }
   
   .image-icon, .file-icon {
@@ -487,15 +522,22 @@
   }
   
   /* File attachment styles */
-  .file-attachment {
-    background-color: #222;
+  .message.file-type {
+    background-color: #232323;
+    padding: 0.5rem 1rem;
     border-radius: 8px;
-    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    max-width: 100%;
+    box-sizing: border-box;
+    word-break: break-word;
+  }
+  
+  .file-attachment {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     margin-bottom: 0.25rem;
-    width: 250px;
+    width: 100%;
   }
   
   .file-info {
@@ -527,12 +569,17 @@
   .download-button {
     background-color: #2e7d32;
     color: white;
-    text-decoration: none;
-    padding: 0.5rem;
+    padding: 0.5rem 1rem;
     border-radius: 4px;
+    text-decoration: none;
     text-align: center;
-    font-size: 0.9rem;
     transition: background-color 0.2s;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    word-break: break-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   .download-button:hover {
@@ -550,6 +597,81 @@
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border-width: 0;
+  }
+  
+  /* Mobile Responsive Styles */
+  @media (max-width: 768px) {
+    .chat-window {
+      flex: 1 1 auto;
+      min-height: 400px;
+    }
+    
+    .chat-header {
+      padding: 0.5rem;
+    }
+    
+    .chat-header h2 {
+      font-size: 1.2rem;
+    }
+    
+    .messages-container {
+      padding: 0.5rem;
+    }
+    
+    .message {
+      margin-bottom: 0.5rem;
+      padding: 0.5rem;
+      max-width: 85%;
+      box-sizing: border-box;
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+    
+    .message-input form {
+      padding: 0.5rem;
+    }
+    
+    .message-input input[type="text"] {
+      font-size: 1rem;
+      padding: 0.5rem;
+      max-width: calc(100% - 140px);
+      flex: 0 1 auto;
+    }
+    
+    .input-container {
+      flex-wrap: nowrap;
+      justify-content: space-between;
+    }
+    
+    .image-upload-label, .file-upload-label {
+      min-width: 44px; /* Minimum touch target size */
+      min-height: 44px;
+      margin-right: 0.25rem;
+    }
+    
+    .send-button {
+      min-width: 60px;
+      min-height: 44px;
+      padding: 0.5rem;
+      margin-left: 5px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      position: relative;
+      right: 5px; /* Pull the button slightly back to ensure it's visible */
+    }
+    
+    /* Adjust image modal for touch screens */
+    .modal-content {
+      width: 90%;
+      max-width: 90vw;
+    }
+    
+    .close-button {
+      font-size: 1.5rem;
+      padding: 0.5rem;
+      min-width: 44px;
+      min-height: 44px;
+    }
   }
   
   /* Modal styles */

@@ -472,4 +472,39 @@
     height: calc(100vh - 100px);
     overflow: hidden;
   }
+  
+  /* Mobile responsive styles */
+  @media (max-width: 768px) {
+    main {
+      padding: 0.5rem;
+    }
+    
+    header {
+      flex-direction: column;
+      align-items: center;
+      padding: 0.5rem;
+    }
+    
+    .user-info {
+      flex-direction: column;
+      align-items: center;
+      margin-top: 0.5rem;
+      width: 100%;
+    }
+    
+    .nickname-container {
+      margin-bottom: 0.5rem;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .edit-nickname-btn {
+      margin-top: 0.5rem;
+    }
+    
+    .chat-container {
+      flex-direction: column;
+      height: calc(100vh - 150px);
+    }
+  }
 </style>

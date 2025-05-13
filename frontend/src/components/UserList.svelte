@@ -56,16 +56,31 @@
 
 <style>
   .user-list {
-    width: 300px;
     background-color: #1e1e1e;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    padding: 1rem;
+    width: 250px;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    height: 100%;
-    overflow: hidden;
-    color: #e1e1e1;
+  }
+  
+  /* Mobile responsive styles */
+  @media (max-width: 768px) {
+    .user-list {
+      width: 100%;
+      max-height: 200px;
+      margin-bottom: 0.5rem;
+    }
+    
+    .user-item {
+      padding: 12px;
+      font-size: 14px;
+    }
+    
+    /* Make sure touch targets are large enough */
+    li {
+      min-height: 44px;
+    }
   }
 
   h2 {
