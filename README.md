@@ -1,3 +1,5 @@
+![image](https://github.com/user-attachments/assets/5b3b7dc5-3250-45e5-859c-c3acbdfe4dd9)
+
 # Simple Chat Application
 
 A real-time chat application that allows users in the same network to communicate through a modern interface.
