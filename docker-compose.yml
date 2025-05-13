@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  simple-chat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"  # Backend API
+      - "5173:5173"  # Frontend
+      - "8080:8080"  # Health check
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3

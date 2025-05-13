@@ -1,0 +1,9 @@
+node_modules/
+__pycache__/
+*.pyc
+.DS_Store
+dist/
+package-lock.json
+frontend/package-lock.json
+Dockerfile.backend
+Dockerfile.frontend
