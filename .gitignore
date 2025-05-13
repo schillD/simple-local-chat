@@ -7,3 +7,4 @@ package-lock.json
 frontend/package-lock.json
 Dockerfile.backend
 Dockerfile.frontend
+.vscode

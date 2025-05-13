@@ -84,8 +84,8 @@ else
     echo "✓ Frontend built successfully"
     # Install and use a simple http server
     cd dist
-    python3 -m http.server 5173 &
-    echo "✓ Static file server started on port 5173"
+    python3 -m http.server 5173 --bind 0.0.0.0 &
+    echo "✓ Static file server started on port 5173 (accessible from host)"
 fi
 
 echo "\nAll services started. Container is now running..."
